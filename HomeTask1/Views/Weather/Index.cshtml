@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "Weather";
+}
+
+<br/>
+<br />
+<div class="container">
+    <h2>
+        Please, choose city from the dropdown-list or enter enother city
+    </h2>
+</div>
+
+<br />
+<br />
+
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="col-md-6">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Cities
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (var item in HomeTask1.Models.CityGenerator.Get())
+                    {
+                        <li>@Html.ActionLink(item.ToString(), "Index", "Weather", new { @city = item }, null)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">       
+            <form action="@Url.Action("Index", "Weather")" method="GET">
+                <input id="city" name="city" type="text" />
+                <input id="Cauta" type="submit" value="Search" />
+            </form>
+            
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li class="active">@Html.ActionLink("Weather today", "Index", "Weather", new { @city = ViewBag.City }, null)</li>
+            <li>@Html.ActionLink("3 next days", "ThreeDays", "Weather", new {@city=ViewBag.City }, null) </li>
+            <li>@Html.ActionLink("7 next days", "SevenDays", "Weather", new { @city = ViewBag.City }, null)</li>
+        </ul>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2>
+        Weather in @ViewBag.City  @DateTime.Now.Day /@DateTime.Now.Month / @DateTime.Now.Year
+    </h2>
+    <br />
+    <div class="container">
+        <div class="col-md-3">
+
+            <img src="~/Images/@(ViewBag.Weather.weather[0].icon).png" />
+        </div>
+        <div class="col-md-9">
+            <h4>
+                @(ViewBag.Weather.main.temp - 274.15) °С
+                <br />
+                Temperature from @(ViewBag.Weather.main.temp_min - 274.15) to @(ViewBag.Weather.main.temp_max - 274.15) °С
+                <br />
+                Wind @ViewBag.Weather.wind.speed m/s
+                <br />
+                Clouds @ViewBag.Weather.clouds.all %
+                
+             </h4>
+          </div>
+    </div>

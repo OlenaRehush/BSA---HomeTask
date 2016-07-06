@@ -1,0 +1,90 @@
+﻿@{
+    ViewBag.Title = "Next 3 days weather";
+}
+
+<br />
+<br />
+<div class="container">
+    <h2>
+        Please, choose city from the dropdown-list or enter enother city
+    </h2>
+</div>
+
+<br />
+<br />
+
+
+<div class="container">
+    <div class="col-md-6">
+        <div class="col-md-6">
+            <div class="dropdown">
+                <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+                    Cities       
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    @foreach (var item in HomeTask1.Models.CityGenerator.Get())
+                    {
+                        <li>@Html.ActionLink(item.ToString(), "ThreeDays", "Weather", new { @city = item }, null)</li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <form action="@Url.Action("Index", "Weather")" method="POST">
+                <input id="CodProiect" name="CodProiect" type="text" />
+                <input id="Cauta" type="submit" value="Search" />
+            </form>
+
+        </div>
+    </div>
+    <div class="col-md-6"></div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <div class="tabs">
+        <ul class="nav nav-tabs">
+            <li >@Html.ActionLink("Weather today", "Index", "Weather", new { @city = ViewBag.City }, null)</li>
+            <li class="active">@Html.ActionLink("3 next days", "ThreeDays", "Weather", new { @city = ViewBag.City }, null) </li>
+            <li>@Html.ActionLink("7 next days", "SevenDays", "Weather", new { @city = ViewBag.City }, null)</li>
+        </ul>
+    </div>
+</div>
+
+<br />
+<br />
+
+<div class="container">
+    <h2>
+        Weather in @(ViewBag.City) 
+    </h2>
+    <br />
+    <br />
+    <div class="container">
+        <div class="col-md-9">
+            @foreach (var x in ViewBag.Weather)
+            {
+                <div class="col-md-3">
+                    <div class="imageDiv">
+                        <img src="~/Images/@(x.weather[0].icon).png" />
+                    </div>
+                    <br />
+                    <br />
+                    <br />
+                    @x.temp.day °С  
+                    <br />
+                    Temperature from @x.temp.min to @x.temp.max °С
+                    <br />
+                    Wind @x.speed m/s
+                    <br />
+                    Clouds @x.clouds %
+            </div>
+            }
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+</div>
+
