@@ -7,19 +7,19 @@ using System.Web;
 
 namespace HomeTask1.Models
 {
-    public class WeatherService
+    public interface IWeatherService
     {
-        private string linkFormat;
+        string linkFormat { get; set; }
+        T GetWeather<T>(string city);
+        
+    }
+    public class WeatherService:IWeatherService
+    {
+        //private string linkFormat;
 
-        public WeatherService(string linkFormat)
-        {
-            this.linkFormat = linkFormat;
-        }
-
+        
         public T GetWeather<T>(string city)
-        {
-
-            
+        {   
             {
                 // ... Use HttpClient.
                 using (HttpClient client = new HttpClient())
@@ -34,6 +34,8 @@ namespace HomeTask1.Models
             }
             
         }
+
+        public string linkFormat { get; set; }
     }
     
 }

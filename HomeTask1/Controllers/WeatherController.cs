@@ -9,14 +9,19 @@ namespace HomeTask1.Controllers
 {
     public class WeatherController : Controller
     {
-        private WeatherService ws;
-       
+        private IWeatherService ws;
+
+        public WeatherController(IWeatherService ws)
+        {
+            this.ws = ws;
+        }
 
         //
         // GET: /Weather/
         public ActionResult Index(string city="Lviv")
         {
-            ws = new WeatherService("http://api.openweathermap.org/data/2.5/weather?q={0}&appid=fce02a07226c189ccac0cdbcb3d4325a");
+            ws.linkFormat = "http://api.openweathermap.org/data/2.5/weather?q={0}&appid=fce02a07226c189ccac0cdbcb3d4325a";
+            
             var x=ws.GetWeather<WeatherObject>(city);
             ViewBag.City = x.name;
             ViewBag.Weather = x;
@@ -25,7 +30,7 @@ namespace HomeTask1.Controllers
 
         public ActionResult ThreeDays(string city = "Lviv")
         {
-            ws = new WeatherService("http://api.openweathermap.org/data/2.5/forecast/daily?q={0}&units=metric&APPID=fce02a07226c189ccac0cdbcb3d4325a");
+            ws.linkFormat = "http://api.openweathermap.org/data/2.5/forecast/daily?q={0}&units=metric&APPID=fce02a07226c189ccac0cdbcb3d4325a";
             var x = ws.GetWeather<WeatherObjectList>(city);
             ViewBag.City = x.city.name;
             ViewBag.Weather = x.list.Take(3);
@@ -34,7 +39,7 @@ namespace HomeTask1.Controllers
 
         public ActionResult SevenDays(string city = "Lviv")
         {
-            ws = new WeatherService("http://api.openweathermap.org/data/2.5/forecast/daily?q={0}&units=metric&APPID=fce02a07226c189ccac0cdbcb3d4325a");
+            ws.linkFormat = "http://api.openweathermap.org/data/2.5/forecast/daily?q={0}&units=metric&APPID=fce02a07226c189ccac0cdbcb3d4325a";
             var x = ws.GetWeather<WeatherObjectList>(city);
             ViewBag.City = x.city.name;
             ViewBag.Weather = x.list;
