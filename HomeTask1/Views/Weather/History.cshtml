@@ -1,0 +1,28 @@
+﻿
+@{
+    ViewBag.Title = "History";
+}
+
+<div class="container">
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>CityId</th>
+                <th>Name</th>
+                <th>Country</th>
+                <th>Time</th>
+            </tr>
+            @foreach (var item in @ViewBag.List)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.cityId</td>
+                    <td>@item.name</td>
+                    <td>@item.country</td>
+                    <td>@item.time</td>
+                </tr>
+            }
+        </table>
+    </div> 
+</div>

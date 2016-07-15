@@ -25,7 +25,13 @@
                 <ul class="dropdown-menu">
                     @foreach (var item in HomeTask1.Models.CityGenerator.Get())
                     {
-                        <li>@Html.ActionLink(item.ToString(), "Index", "Weather", new { @city = item }, null)</li>
+                        <li>
+                                @Html.ActionLink(item.ToString(), "Index", "Weather", new { @city = item }, null) 
+                    <form action="@Url.Action("RemoveFavourite", "Weather", new { @city = item }, null)" method="POST">
+    
+                        <input type="submit" value="x" />
+                    </form>
+                        </li>
                     }
                 </ul>
             </div>
@@ -61,6 +67,12 @@
     <h2>
         Weather in @ViewBag.City  @DateTime.Now.Day /@DateTime.Now.Month / @DateTime.Now.Year
     </h2>
+    <div>
+        <form action="@Url.Action("AddFavourite", "Weather", new { @city = ViewBag.City }, null)" method="POST">
+
+            <input type="submit" value="Add to favourite" />
+        </form>
+    </div>
     <br />
     <div class="container">
         <div class="col-md-3">

@@ -1,7 +1,9 @@
-﻿using System;
+﻿using HomeTask1.DAL.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+
 
 namespace HomeTask1.Models
 {
@@ -10,9 +12,13 @@ namespace HomeTask1.Models
     {
         public static List<string> Get()
         {
-            return new List<string> { "Lviv", "Kyiv", "Kharkiv", "Odessa", "Dnipro" };
+            var context = new WeatherDBContext();
+            return context.Cities.Select(s => s.name).ToList();
+            //return new List<string> { "Lviv", "Kyiv", "Kharkiv", "Odessa", "Dnipro" };
         } 
     }
+
+    
 
     public class Coord
     {
@@ -31,7 +37,7 @@ namespace HomeTask1.Models
     public class Main
     {
         public double temp { get; set; }
-        public int pressure { get; set; }
+        public double pressure { get; set; }
         public int humidity { get; set; }
         public double temp_min { get; set; }
         public double temp_max { get; set; }
@@ -40,7 +46,7 @@ namespace HomeTask1.Models
     public class Wind
     {
         public double speed { get; set; }
-        public int deg { get; set; }
+        public double deg { get; set; }
     }
 
     public class Clouds
@@ -118,6 +124,7 @@ namespace HomeTask1.Models
         public int population { get; set; }
     }
 
+    
 
     public class WeatherObjectList
     {
