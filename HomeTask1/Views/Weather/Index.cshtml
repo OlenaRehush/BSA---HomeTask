@@ -23,10 +23,10 @@
                     <span class="caret"></span>
                 </button>
                 <ul class="dropdown-menu">
-                    @foreach (var item in HomeTask1.Models.CityGenerator.Get())
+                    @foreach (var item in ViewBag.ListOfCities)
                     {
                         <li>
-                                @Html.ActionLink(item.ToString(), "Index", "Weather", new { @city = item }, null) 
+                                @Html.ActionLink((string)item, "Index", "Weather", new { @city = item }, null) 
                     <form action="@Url.Action("RemoveFavourite", "Weather", new { @city = item }, null)" method="POST">
     
                         <input type="submit" value="x" />
@@ -92,3 +92,4 @@
              </h4>
           </div>
     </div>
+</div>

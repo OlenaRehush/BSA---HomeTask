@@ -3,6 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Data.Entity;
 
 
 namespace HomeTask1.Models
@@ -10,11 +13,10 @@ namespace HomeTask1.Models
 
     public static class CityGenerator
     {
-        public static List<string> Get()
+        public static async Task<List<string>> Get()
         {
             var context = new WeatherDBContext();
-            return context.Cities.Select(s => s.name).ToList();
-            //return new List<string> { "Lviv", "Kyiv", "Kharkiv", "Odessa", "Dnipro" };
+           return await context.Cities.Select(s => s.name).ToListAsync();
         } 
     }
 
